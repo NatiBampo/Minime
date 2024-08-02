@@ -19,8 +19,7 @@ SOURCES += \
     lib104/iecServerView.cpp \
     lib104/serverTableModel.cpp \
     lib104/startButtonDelegate.cpp \
-    main.cpp \
-    mainwindow.cpp
+    main.cpp
 
 
 HEADERS += \
@@ -30,12 +29,10 @@ HEADERS += \
     lib104/API/serverController.h \
     lib104/iecServerView.h \
     lib104/serverTableModel.h \
-    lib104/startButtonDelegate.h \
-    mainwindow.h
+    lib104/startButtonDelegate.h
 
 
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

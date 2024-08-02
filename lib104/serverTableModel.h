@@ -31,7 +31,7 @@ private:
     void appendServer();
 
 public slots:
-    void startServer(const QModelIndex &index);
+    void startServer();//const QModelIndex &index);
     void deleteServer(const QModelIndex &index);
 };
 
