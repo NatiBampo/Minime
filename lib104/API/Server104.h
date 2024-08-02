@@ -3,9 +3,9 @@
 
 #include <QObject>
 #include <QThread>
+#include <QDebug>
 
-
-class Server104 : public QThread
+class Server104 : public QObject
 {
     Q_OBJECT
     //enum TagType : unsigned char {SP = 0, MV = 1, FL = 2};
@@ -24,7 +24,7 @@ public:
         port = 2404;
         asdu = 1;
         state = false;
-
+        qDebug() << "init server fin";
     }
     //
     Server104(const unsigned int *address)//unsigned char tagT, float tagV, char* tagTime, bool tagState)
@@ -109,4 +109,7 @@ public:
     char* time = {};
     TagState state = TagState(0);*/
 };
+
+Q_DECLARE_METATYPE(Server104)
+
 #endif // SERVER104_H
