@@ -1,5 +1,5 @@
 #include "lib104/serverTableModel.h"
-#include "lib104/API/Server104.h"
+#include "lib104/API/ServerVariant.h"
 #include "lib104/startButtonDelegate.h"
 #include <QLayout>
 #include <QPushButton>
@@ -7,6 +7,8 @@
 #include <QApplication>
 #include <QTableView>
 #include <QObject>
+
+
 
 int main(int argc, char *argv[])
 {
@@ -34,11 +36,21 @@ int main(int argc, char *argv[])
 
     //QPushButton *addServerButton = new QPushButton("Add server");
     QPushButton *startServerButton = new QPushButton("Start server");
+    QPushButton *doShitButton = new QPushButton("Do shit");
     verticalLayout->addWidget(view);
     //verticalLayout->addWidget(addServerButton);
     verticalLayout->addWidget(startServerButton);
-    QObject::connect(startServerButton, SIGNAL(buttonClicked()),
+    verticalLayout->addWidget(doShitButton);
+
+    QObject::connect(startServerButton, SIGNAL(released()),
             &model, SLOT(startServer()));
+    int counter = 0;
+
+    QObject::connect(doShitButton, &QPushButton::released,
+                    doShitButton, [doShitButton, &counter]{
+        doShitButton->setText("Eat shit " + QString::number(counter));
+        counter++;
+    });
 
     QWidget widget;
     widget.setLayout(verticalLayout);

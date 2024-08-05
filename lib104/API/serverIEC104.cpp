@@ -1,5 +1,5 @@
-#include <serverController.h>
-
+#include <serverIEC104.h>
+#include <QDebug>
 
 void
 sigint_handler(int signalId)
@@ -66,7 +66,7 @@ interrogationHandler(void* parameter, IMasterConnection connection, CS101_ASDU a
         CS101_ASDU newAsdu = CS101_ASDU_create(alParams, false, CS101_COT_INTERROGATED_BY_STATION,
                 0, 1, false, false);
 
-        InformationObject io = (InformationObject) MeasuredValueScaled_create(NULL, 100, -1, IEC60870_QUALITY_GOOD);
+        InformationObject io = (InformationObject) MeasuredValueScaled_create(NULL, 100, -150, IEC60870_QUALITY_GOOD);
 
         CS101_ASDU_addInformationObject(newAsdu, io);
 
@@ -103,10 +103,10 @@ interrogationHandler(void* parameter, IMasterConnection connection, CS101_ASDU a
 
         CS101_ASDU_addInformationObject(newAsdu, io = (InformationObject) SinglePointInformation_create(NULL, 300, true, IEC60870_QUALITY_GOOD));
         CS101_ASDU_addInformationObject(newAsdu, (InformationObject) SinglePointInformation_create((SinglePointInformation) io, 301, false, IEC60870_QUALITY_GOOD));
-        CS101_ASDU_addInformationObject(newAsdu, (InformationObject) SinglePointInformation_create((SinglePointInformation) io, 302, true, IEC60870_QUALITY_GOOD));
+        CS101_ASDU_addInformationObject(newAsdu, (InformationObject) SinglePointInformation_create((SinglePointInformation) io, 302, false, IEC60870_QUALITY_GOOD));
         CS101_ASDU_addInformationObject(newAsdu, (InformationObject) SinglePointInformation_create((SinglePointInformation) io, 303, false, IEC60870_QUALITY_GOOD));
         CS101_ASDU_addInformationObject(newAsdu, (InformationObject) SinglePointInformation_create((SinglePointInformation) io, 304, true, IEC60870_QUALITY_GOOD));
-        CS101_ASDU_addInformationObject(newAsdu, (InformationObject) SinglePointInformation_create((SinglePointInformation) io, 305, false, IEC60870_QUALITY_GOOD));
+        CS101_ASDU_addInformationObject(newAsdu, (InformationObject) SinglePointInformation_create((SinglePointInformation) io, 305, true, IEC60870_QUALITY_GOOD));
         CS101_ASDU_addInformationObject(newAsdu, (InformationObject) SinglePointInformation_create((SinglePointInformation) io, 306, true, IEC60870_QUALITY_GOOD));
         CS101_ASDU_addInformationObject(newAsdu, (InformationObject) SinglePointInformation_create((SinglePointInformation) io, 307, false, IEC60870_QUALITY_GOOD));
 
@@ -181,6 +181,7 @@ static bool
 connectionRequestHandler(void* parameter, const char* ipAddress)
 {
     printf("New connection request from %s\n", ipAddress);
+    qDebug() << "New connection request from " << ipAddress;
 
 /*#if 0
     if (strcmp(ipAddress, "127.0.0.1") == 0) {
@@ -237,13 +238,21 @@ init_iec_server()
     /* when you have to tweak the APCI parameters (t0-t3, k, w) you can access them here */
     CS104_APCIParameters apciParams = CS104_Slave_getConnectionParameters(slave);
 
-    printf("APCI parameters:\n");
+    /*printf("APCI parameters:\n");
     printf("  t0: %i\n", apciParams->t0);
     printf("  t1: %i\n", apciParams->t1);
     printf("  t2: %i\n", apciParams->t2);
     printf("  t3: %i\n", apciParams->t3);
     printf("  k: %i\n", apciParams->k);
-    printf("  w: %i\n", apciParams->w);
+    printf("  w: %i\n", apciParams->w);*/
+
+    qDebug() << "APCI parameters:" << "some shit follows";
+    /*printf("  t0: %i\n", apciParams->t0);
+    printf("  t1: %i\n", apciParams->t1);
+    printf("  t2: %i\n", apciParams->t2);
+    printf("  t3: %i\n", apciParams->t3);
+    printf("  k: %i\n", apciParams->k);
+    printf("  w: %i\n", apciParams->w);*/
 
     /* set the callback handler for the clock synchronization command */
     CS104_Slave_setClockSyncHandler(slave, clockSyncHandler, NULL);
@@ -271,8 +280,9 @@ init_iec_server()
     }*/
 
     int16_t scaledValue = 0;
-
-    while (running) {
+    running = true;
+    while (running)
+    {
 
         Thread_sleep(1000);
 

@@ -1,5 +1,5 @@
-#ifndef SERVERCONTROLLER_H
-#define SERVERCONTROLLER_H
+#ifndef SERVERIEC104_H
+#define SERVERIEC104_H
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -26,4 +26,4 @@ int init_iec_server();
 
 
 
-#endif // SERVERCONTROLLER_H
+#endif // SERVERIEC104_H

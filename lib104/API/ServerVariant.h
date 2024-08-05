@@ -1,5 +1,5 @@
-#ifndef SERVER104_H
-#define SERVER104_H
+#ifndef SERVERVARIANT_H
+#define SERVERVARIANT_H
 
 #include <QObject>
 #include <QThread>
@@ -12,8 +12,8 @@ class Server104 : public QObject
     //enum TagState {VALID = 100, INVALID = 200};
     enum Column { IP = 0, Port = 1, ASDU = 2, State = 3 };//, IO = 3, TAGTYPE = 4, VALUE = 5, TIME = 6, STATE = 7 };
     static int m_server_count;
-public:
 
+public:
 
     Server104()
     {
@@ -24,7 +24,6 @@ public:
         port = 2404;
         asdu = 1;
         state = false;
-        qDebug() << "init server fin";
     }
     //
     Server104(const unsigned int *address)//unsigned char tagT, float tagV, char* tagTime, bool tagState)
@@ -112,4 +111,4 @@ public:
 
 Q_DECLARE_METATYPE(Server104)
 
-#endif // SERVER104_H
+#endif // SERVERVARIANT_H

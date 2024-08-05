@@ -14,21 +14,23 @@ INCLUDEPATH += /home/marco/proj/minime/lib104/API
 
 
 SOURCES += \
-    lib104/API/clientController.c \
-    lib104/API/serverController.cpp \
+    lib104/API/clientIEC104.c \
+    lib104/API/serverIEC104.cpp \
     lib104/iecServerView.cpp \
     lib104/serverTableModel.cpp \
+    lib104/serverworker.cpp \
     lib104/startButtonDelegate.cpp \
     main.cpp
 
 
 HEADERS += \
-    lib104/API/Server104.h \
+    lib104/API/ServerVariant.h \
     lib104/API/cs104_slave.h \
     lib104/API/cs104_connection.h \
-    lib104/API/serverController.h \
+    lib104/API/serverIEC104.h \
     lib104/iecServerView.h \
     lib104/serverTableModel.h \
+    lib104/serverworker.h \
     lib104/startButtonDelegate.h
 
 

@@ -5,7 +5,7 @@
 #include <QThread>
 #include <QDebug>
 #include <QVariant>
-#include "Server104.h"
+#include "ServerVariant.h"
 
 class ServerTableModel : public QAbstractTableModel
 {
@@ -32,6 +32,7 @@ private:
 
 public slots:
     void startServer();//const QModelIndex &index);
+    void stopServer();//const QModelIndex &index);
     void deleteServer(const QModelIndex &index);
 };
 
