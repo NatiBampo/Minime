@@ -28,9 +28,10 @@ protected:
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 private:
 
-    void appendServer();
 
 public slots:
+    void appendServer();
+
     void startServer();//const QModelIndex &index);
     void stopServer();//const QModelIndex &index);
     void deleteServer(const QModelIndex &index);

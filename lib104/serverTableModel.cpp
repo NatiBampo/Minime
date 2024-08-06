@@ -1,5 +1,5 @@
 #include "serverTableModel.h"
-#include "API/serverIEC104.h"
+
 
 ServerTableModel::ServerTableModel(QObject *parent)
     : QAbstractTableModel(parent)
@@ -135,19 +135,7 @@ void ServerTableModel::startServer()
 //    QVariant::fromValue(StarRating(staticData[row].rating)));
 
     Server104 server = qvariant_cast<Server104>(m_servers[0]); //index.row()]);
-    bool state = server.getState();
-    if (!state)
-    {
-        qDebug() << QString("Starting %1 server").arg(0); //index.row());
-        init_iec_server();
-    }
-    else
-    {
-        qDebug() << QString("Stopping %1 server").arg(0); //index.row());
-
-        sigint_handler(0);
-    }
-    server.setState(!state);
+    server.startServer();
 
     //m_servers.at(index.row());
 

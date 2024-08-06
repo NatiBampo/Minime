@@ -18,7 +18,6 @@ SOURCES += \
     lib104/API/serverIEC104.cpp \
     lib104/iecServerView.cpp \
     lib104/serverTableModel.cpp \
-    lib104/serverworker.cpp \
     lib104/startButtonDelegate.cpp \
     main.cpp
 
@@ -30,7 +29,6 @@ HEADERS += \
     lib104/API/serverIEC104.h \
     lib104/iecServerView.h \
     lib104/serverTableModel.h \
-    lib104/serverworker.h \
     lib104/startButtonDelegate.h
 
 

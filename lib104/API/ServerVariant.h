@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QThread>
 #include <QDebug>
+#include "serverIEC104.h"
 
 class Server104 : public QObject
 {
@@ -94,7 +95,7 @@ public:
     float getValue() const { return value; }
     char* getTime() const { return time; }
     TagState getState() const { return state; }*/
-    void startServer();
+
     void createASDU(int num, float* values, int* iots, int* types);
 
 public:
@@ -107,6 +108,29 @@ public:
     float value = 0;
     char* time = {};
     TagState state = TagState(0);*/
+
+
+public slots:
+    void startServer()
+    {
+        qDebug() << "i'm in";
+       if (state)
+       {
+           qDebug() << QString("Stopping %1 server").arg(0); //index.row());
+           //sigint_handler(2);
+           running = false;
+           state = false;
+       }
+       else
+       {
+
+           qDebug() << QString("Starting %1 server").arg(0); //index.row());
+           init_iec_server();
+           state = true;
+           qDebug() << "i'm out";
+
+       }
+    }
 };
 
 Q_DECLARE_METATYPE(Server104)

@@ -4,6 +4,7 @@
 void
 sigint_handler(int signalId)
 {
+    qDebug() << "sigint_handler: " << signalId ;
     running = false;
 }
 
@@ -215,7 +216,7 @@ connectionEventHandler(void* parameter, IMasterConnection con, CS104_PeerConnect
 }
 
 int
-init_iec_server()
+init_iec_server()//int serverID, const char*)
 {
     /* Add Ctrl-C handler */
     signal(SIGINT, sigint_handler);
@@ -283,7 +284,6 @@ init_iec_server()
     running = true;
     while (running)
     {
-
         Thread_sleep(1000);
 
         CS101_ASDU newAsdu = CS101_ASDU_create(alParams, false, CS101_COT_PERIODIC, 0, 1, false, false);
@@ -301,6 +301,8 @@ init_iec_server()
 
         CS101_ASDU_destroy(newAsdu);
     }
+
+    qDebug() << "stopped in init";
 
     CS104_Slave_stop(slave);
 
