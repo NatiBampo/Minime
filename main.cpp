@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     ServerTableModel model;
     QTableView *view = new QTableView();
 
-    Server104 first_server;
+    ServerVariant first_server;
     QThread first_thread;
     first_server.moveToThread(&first_thread);
     first_thread.start();
@@ -28,22 +28,18 @@ int main(int argc, char *argv[])
     view->setModel(&model);
     view->setVisible(true);
 
-    /*StartButtonDelegate *itemDelegate = new StartButtonDelegate();
-    view->setItemDelegateForColumn(3, itemDelegate);
-    connect(itemDelegate,SIGNAL(buttonClicked(QModelIndex)),model,SLOT(startServer(QModelIndex)));*/
-
-    //widget->setLayout(verticalLayout);
-
 
     //QPushButton *addServerButton = new QPushButton("Add server");
     QPushButton *startServerButton = new QPushButton("Start server");
+    QPushButton *startServerButton2 = new QPushButton("Start server2");
     QPushButton *doShitButton = new QPushButton("Do shit");
     verticalLayout->addWidget(view);
     //verticalLayout->addWidget(addServerButton);
     verticalLayout->addWidget(startServerButton);
+    verticalLayout->addWidget(startServerButton2);
     verticalLayout->addWidget(doShitButton);
     bool flag = true;
-
+    bool flag2 = true;
 
     QObject::connect(startServerButton, &QPushButton::clicked,
             [&flag, &startServerButton]
@@ -60,13 +56,40 @@ int main(int argc, char *argv[])
             qDebug() << "2";
             flag = true;
             startServerButton->setText("Start");
+//            sigint_handler(2);
+            someshit_handler();
             //running = false;
-            sigint_handler(2);
         }
     });
 
     QObject::connect(startServerButton, &QPushButton::clicked,
-            &first_server, &Server104::startServer);
+            &first_server, &ServerVariant::startServer);
+
+
+
+
+    QObject::connect(startServerButton2, &QPushButton::clicked,
+            [&flag2, &startServerButton2, &first_server]
+    {
+        if (flag2)
+        {
+            qDebug() << "11";
+            first_server.state = true;
+            startServerButton2->setText("Stop2");
+            flag2 = false;
+        }
+        else
+        {
+            qDebug() << "21";
+            flag2 = true;
+            startServerButton2->setText("Start2");
+            first_server.state = false;
+        }
+    });
+
+    QObject::connect(startServerButton2, &QPushButton::clicked,
+            &first_server, &ServerVariant::startServer2);
+
 
     int counter = 0;
 

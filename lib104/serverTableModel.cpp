@@ -4,7 +4,7 @@
 ServerTableModel::ServerTableModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-    headers << "Server104" << "Buttons"; //"IP" << "Port" << "ASDU" << "State";// << "IOT"<< "TagTape" << "TagValue" << "Time" << "State";
+    headers << "ServerVariant" << "Buttons"; //"IP" << "Port" << "ASDU" << "State";// << "IOT"<< "TagTape" << "TagValue" << "Time" << "State";
 }
 
 
@@ -44,7 +44,7 @@ QVariant ServerTableModel::data(const QModelIndex &index, int role) const
 
    if (role == Qt::DisplayRole)
    {
-       Server104 server = qvariant_cast<Server104>(m_servers[row]);
+       ServerVariant server = qvariant_cast<ServerVariant>(m_servers[row]);
        switch (col)
        {
        case 0:
@@ -99,7 +99,7 @@ bool ServerTableModel::setData(const QModelIndex &index, const QVariant &value, 
 */
 void ServerTableModel::appendServer()
 {
-    /*Server104 server;
+    /*ServerVariant server;
     QThread server_Thread;
     server.moveToThread(&server_Thread);
     server_Thread.start();
@@ -111,10 +111,10 @@ void ServerTableModel::appendServer()
     endInsertRows();*/
 }
 
-void ServerTableModel::appendServer(Server104 &server)//const unsigned int *address)//, const float *tag, const char* time, bool state )
+void ServerTableModel::appendServer(ServerVariant &server)//const unsigned int *address)//, const float *tag, const char* time, bool state )
 {
     m_servers.append(QVariant::fromValue(server));
-    /*Server104 server(address);// = new Server104(address);
+    /*ServerVariant server(address);// = new ServerVariant(address);
     QThread server_Thread;
     server.moveToThread(&server_Thread);
     //connect(&server_Thread, &QThread::finished, server, &QObject::deleteLater);
@@ -134,36 +134,14 @@ void ServerTableModel::startServer()
 //    StarRating starRating = qvariant_cast<StarRating>(index.data());
 //    QVariant::fromValue(StarRating(staticData[row].rating)));
 
-    Server104 server = qvariant_cast<Server104>(m_servers[0]); //index.row()]);
+    ServerVariant server = qvariant_cast<ServerVariant>(m_servers[0]); //index.row()]);
     server.startServer();
 
     //m_servers.at(index.row());
 
 }
 
-void ServerTableModel::stopServer()
-{
-//    StarRating starRating = qvariant_cast<StarRating>(index.data());
-//    QVariant::fromValue(StarRating(staticData[row].rating)));
-    Server104 server = qvariant_cast<Server104>(m_servers[0]); //index.row()]);
 
-    bool state = server.getState();
-    if (!state)
-    {
-        qDebug() << QString("Starting %1 server").arg(0); //index.row());
-        init_iec_server();
-    }
-    else
-    {
-        qDebug() << QString("Stopping %1 server").arg(0); //index.row());
-
-        sigint_handler(0);
-    }
-    server.setState(!state);
-
-    //m_servers.at(index.row());
-
-}
 void ServerTableModel::deleteServer(const QModelIndex &index)
 {
 
@@ -174,7 +152,7 @@ void ServerTableModel::deleteServer(const QModelIndex &index)
     //server_Thread.quit();
     //server_Thread.terminate();
 
-    //Server104 server = m_servers.takeAt(index.row());
+    //ServerVariant server = m_servers.takeAt(index.row());
     //server.stop;
     //delete server;
     //m_server_threads.removeAt(row);

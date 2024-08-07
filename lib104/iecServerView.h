@@ -1,5 +1,5 @@
-#ifndef IECSERVERVI\EW_H
-#define IECSERVERVI\EW_H
+#ifndef IECSERVERVIEW_H
+#define IECSERVERVIEW_H
 
 #include <QTableView>
 

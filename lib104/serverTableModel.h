@@ -18,7 +18,7 @@ private:
 public:
     explicit ServerTableModel(QObject *parent = nullptr);
     QStringList headers;
-    void appendServer(Server104 &server);//const unsigned int *address);//, const float *tag, const char* time, const bool state );
+    void appendServer(ServerVariant &server);//const unsigned int *address);//, const float *tag, const char* time, const bool state );
 
 protected:
     virtual int rowCount(const QModelIndex& index) const override;
@@ -33,7 +33,6 @@ public slots:
     void appendServer();
 
     void startServer();//const QModelIndex &index);
-    void stopServer();//const QModelIndex &index);
     void deleteServer(const QModelIndex &index);
 };
 
